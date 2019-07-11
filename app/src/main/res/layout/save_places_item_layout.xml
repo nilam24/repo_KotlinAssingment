@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              android:layout_marginTop="40dp"
+              android:layout_marginLeft="20dp"
+              android:padding="4dp"
+              android:id="@+id/tv_id"
+              android:text="placeid"/>
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/tv_name"
+              app:layout_constraintTop_toBottomOf="@+id/tv_id"
+              app:layout_constraintLeft_toLeftOf="parent"
+              android:layout_marginLeft="20dp"
+              android:layout_marginTop="10dp"
+              android:padding="4dp"
+              android:text="place name"
+
+    />
+    <ImageView android:layout_width="20dp"
+               android:layout_height="20dp"
+               android:id="@+id/img2"
+               android:src="@color/colorAccent"
+               android:layout_marginLeft="10dp"
+               app:layout_constraintLeft_toRightOf="@+id/tv_name"
+               app:layout_constraintTop_toTopOf="parent"
+               android:layout_marginTop="80dp"/>
+
+</android.support.constraint.ConstraintLayout>

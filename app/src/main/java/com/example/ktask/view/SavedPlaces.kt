@@ -1,6 +1,5 @@
 package com.example.ktask.view
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
@@ -9,22 +8,15 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
-import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import com.example.ktask.R
 import com.example.ktask.model.ModelPlaces
-import com.example.ktask.model.PlaceAppDatabase
-import com.example.ktask.model.PlaceDao
-import com.example.ktask.model.SharedPrefManager
-import com.example.ktask.viewmodel.PlaceViewModel
 import com.example.ktask.viewmodel.ViewModel1
 import kotlinx.android.synthetic.main.fragment_save_places.view.*
 import java.lang.Exception
+import kotlin.concurrent.thread
 
 class SavedPlaces : Fragment()  {
 
@@ -84,16 +76,22 @@ class SavedPlaces : Fragment()  {
         recycler1?.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             recycler1.layoutManager = layoutManager
-            recycler1.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.VERTICAL))
-            adapterSave = SaveAdapter(context,list, object : SaveAdapter.TaskHandler2{
-                override fun itemClick(pos: Int, modelPlaces: ModelPlaces) {
-                    pos1=pos
-                    vm.delete(modelPlaces)
+           // recycler1.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.VERTICAL))
+            adapterSave = SaveAdapter(requireContext(),list, object : SaveAdapter.TaskHandler2{
+                override fun itemClick(pos: Int, modelPlaces11: ModelPlaces) {
+                    //pos1=pos
+
+                    thread(start = true) {
+                        vm.delete(modelPlaces11)
+                    }
+                    list.removeAt(pos)
+                    adapterSave.notifyDataSetChanged()
 
                 }
             })
             recycler1.adapter = adapterSave
-            adapterSave.notifyDataSetChanged()
+            //recycler1.notifySubtreeAccessibilityStateChanged()
+           // adapterSave.notifyDataSetChanged()
 
         }
         return view
@@ -102,7 +100,7 @@ class SavedPlaces : Fragment()  {
     fun getAllPlaces() {
         vm.select1().observe(this, Observer { mps ->
 
-            if (mps!!.size > 0) {
+            if (mps!!.isNotEmpty()) {
                 list.addAll(mps)
                 adapterSave.notifyDataSetChanged()
             }

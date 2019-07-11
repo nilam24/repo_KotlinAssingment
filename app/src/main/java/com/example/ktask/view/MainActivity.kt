@@ -21,12 +21,14 @@ import android.widget.Toast
 import com.example.ktask.R
 import com.example.ktask.model.ModelPlaces
 import com.example.ktask.viewmodel.PlaceViewModel
+import com.example.ktask.viewmodel.ViewModel1
 import kotlinx.android.synthetic.main.content_main.*
+import java.lang.IllegalArgumentException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -83,7 +85,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> getRefreshData()
+
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -140,4 +144,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+    private fun getRefreshData() : Boolean {
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frame_saveplace, SavedPlaces.newInstance(), "savePlace")
+            .commitAllowingStateLoss()
+         return true
+    }
+
+
+//        vm.select1().observe(this, Observer { mps->
+//
+//            if(mps!!.isNotEmpty()){
+//                refreshList.addAll(mps)
+//
+//            }
+//
+//
+//
+//        })
+
+
 }

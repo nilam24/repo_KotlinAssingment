@@ -17,6 +17,7 @@ interface PlaceDao  {
 
     @Query("SELECT * FROM  ModelPlaces" )
     fun  getList1() : LiveData<List<ModelPlaces>>
-
+    @Update
+    fun refreshDb(modelPlaces: ModelPlaces)
 
 }

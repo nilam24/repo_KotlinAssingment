@@ -48,6 +48,9 @@ class ViewModel1(application: Application) : AndroidViewModel(application) {
         return success
 
     }
+    fun updateFun(modelPlaces: ModelPlaces){
+        placedao.refreshDb(modelPlaces)
+    }
 
     fun apiCall(context: Context,ll:String,oauth_token:String,v:String) : LiveData<ModelPlaces>{
         var apicalllist:LiveData<ModelPlaces>? =null

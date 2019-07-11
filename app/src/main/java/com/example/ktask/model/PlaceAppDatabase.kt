@@ -54,7 +54,7 @@ abstract class PlaceAppDatabase : RoomDatabase() {
         }
 
         private fun prepopulateDb(context: Context, database: PlaceAppDatabase?) {
-         var modelPlaces = ModelPlaces("4bcca12bb6c49c7422169491", "86th Floor Observation Deck",true)
+         var modelPlaces = ModelPlaces("4bcca12bb6c49c7422169491", "86th Floor Observation Deck",false)
          database!!.placedao().insert(modelPlaces)
         }
     }

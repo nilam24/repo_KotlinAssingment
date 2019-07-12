@@ -21,8 +21,9 @@ class SaveAdapter(
 
 
     interface TaskHandler2 {
-        fun itemClick(pos: Int, modelPlaces: ModelPlaces)
+        fun itemClick(pos: Int, list1: ArrayList<ModelPlaces>)
     }
+
     var modelPlaces = ModelPlaces()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderSavePlace {
         var inflater = LayoutInflater.from(parent.context)
@@ -39,13 +40,19 @@ class SaveAdapter(
     override fun onBindViewHolder(holder1: ViewHolderSavePlace, position: Int) {
 
 
-
         task2 as TaskHandler2
         modelPlaces = allData.get(position)
-//        if(modelPlaces.isSaved) {
-  //          holder1.image.setImageResource(R.color.colorAccent)
-//        }
-//        else holder1.image.setImageResource(R.color.primary_dark_material_dark)
+        if (modelPlaces.isSaved) {
+            holder1.textPlaceID.visibility = View.VISIBLE
+            holder1.textPlaceName.visibility = View.VISIBLE
+            holder1.image.visibility = View.VISIBLE
+            holder1.image.setImageResource(R.color.colorAccent)
+        } else {
+            holder1.textPlaceName.visibility = View.GONE
+            holder1.textPlaceID.visibility = View.GONE
+            holder1.image.visibility = View.GONE
+            //holder1.image.setImageResource(R.color.primary_dark_material_dark)
+        }
 
         holder1.textPlaceID.setText(modelPlaces.placeId)
         holder1.textPlaceName.setText(modelPlaces.placeName)
@@ -53,12 +60,8 @@ class SaveAdapter(
         holder1.image.setOnClickListener {
 
             holder1.image.setImageResource(R.color.primary_dark_material_dark)
-            var modelPlaces11 = ModelPlaces()
-            modelPlaces11 = allData[position]
 
-            task2.itemClick(holder1.adapterPosition, modelPlaces11)
-//            allData.removeAt(position)
-//            notifyDataSetChanged()
+            task2.itemClick(holder1.adapterPosition, allData)
 
 
         }
@@ -66,13 +69,13 @@ class SaveAdapter(
 
     }
 
+
     override fun getItemId(position: Int): Long {
 
-       modelPlaces.placeId.get(position)
+        modelPlaces.placeId.get(position)
 
         return getItemId(position)
     }
-
 
 
     class ViewHolderSavePlace(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {

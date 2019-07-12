@@ -1,6 +1,7 @@
 package com.example.ktask.model
 
 import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.persistence.room.*
 
 @Dao

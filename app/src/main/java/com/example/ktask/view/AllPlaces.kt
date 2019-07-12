@@ -3,8 +3,6 @@ package com.example.ktask.view
 
 import android.arch.lifecycle.*
 import android.content.Context
-import android.content.SharedPreferences
-import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -20,15 +18,11 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.ktask.R
 import com.example.ktask.model.*
-import com.example.ktask.viewmodel.IPlaceViewModel
-import com.example.ktask.viewmodel.PlaceViewModel
 import com.example.ktask.viewmodel.ViewModel1
-
 import kotlinx.android.synthetic.main.fragment_all_places.view.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
-import java.nio.channels.Selector
 import java.util.HashMap
 import kotlin.concurrent.thread
 
@@ -55,13 +49,8 @@ class AllPlaces : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //vm = activity.run { ViewModelProviders.of(this!!).get(PlaceViewModel::class.java) } ?: throw Exception("invalid activity")
           viewmodel1 = ViewModelProviders.of(this!!).get(ViewModel1::class.java)   ?: throw Exception("invalid activity")
 
-
-
-//        vm1 = activity.run{ViewModelProviders.of(this!!).get(PlaceViewModel1::class.java)} ?: throw Exception("invalia context")
-        // vm = ViewModelProviders.of(requireActivity()).get(PlaceViewModel::class.java) ?: throw Exception("invalid..")
 
         Toast.makeText(context, "hi kotlin  ", Toast.LENGTH_LONG).show()
 

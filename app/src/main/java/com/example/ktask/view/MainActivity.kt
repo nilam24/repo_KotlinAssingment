@@ -1,8 +1,5 @@
 package com.example.ktask.view
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
@@ -13,17 +10,11 @@ import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.Toast
 import com.example.ktask.R
-import com.example.ktask.model.ModelPlaces
-import com.example.ktask.viewmodel.PlaceViewModel
-import com.example.ktask.viewmodel.ViewModel1
 import kotlinx.android.synthetic.main.content_main.*
-import java.lang.IllegalArgumentException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 

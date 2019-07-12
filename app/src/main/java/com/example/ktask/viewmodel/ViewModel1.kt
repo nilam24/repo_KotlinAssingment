@@ -22,6 +22,7 @@ class ViewModel1(application: Application) : AndroidViewModel(application) {
     var placedao: PlaceDao = vm1!!.placedao()
     private var allData: LiveData<ModelPlaces>? = null
     var allDataList: LiveData<List<ModelPlaces>>? = null
+    var success : LiveData<Integer>? = null
     var modelPlaces = ModelPlaces()
     lateinit var dataManager : PlaceDataManager
     var ap : PlaceApiInterface? =null
@@ -40,12 +41,12 @@ class ViewModel1(application: Application) : AndroidViewModel(application) {
     }
 
     fun delete(modelPlaces: ModelPlaces): Int {
-
-        var success = 0
+        var success1 = 0
         thread(start = true) {
-            success = placedao.deletePlace(modelPlaces)
-        }
-        return success
+        success1 = placedao.deletePlace(modelPlaces)
+    }
+
+        return success1
 
     }
     fun updateFun(modelPlaces: ModelPlaces){

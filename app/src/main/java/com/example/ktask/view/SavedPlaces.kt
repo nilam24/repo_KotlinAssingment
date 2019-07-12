@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import com.example.ktask.R
 import com.example.ktask.model.ModelPlaces
 import com.example.ktask.viewmodel.ViewModel1
@@ -18,15 +19,15 @@ import kotlinx.android.synthetic.main.fragment_save_places.view.*
 import java.lang.Exception
 import kotlin.concurrent.thread
 
-class SavedPlaces : Fragment()  {
+class SavedPlaces : Fragment() {
 
-
-    lateinit var vm : ViewModel1
-    var list  = arrayListOf<ModelPlaces>()
+    lateinit var vm: ViewModel1
+    var list = arrayListOf<ModelPlaces>()
     private var recycler1: RecyclerView? = null
     lateinit var adapterSave: SaveAdapter
     var modelPlaces = ModelPlaces()
     var pos1 = 0
+    lateinit var progressBar: ProgressBar
 
     companion object {
         fun newInstance(): SavedPlaces {
@@ -44,6 +45,7 @@ class SavedPlaces : Fragment()  {
         super.onAttach(context)
 
     }
+
     override fun onDetach() {
         super.onDetach()
     }
@@ -54,44 +56,25 @@ class SavedPlaces : Fragment()  {
         var layoutManager: LinearLayoutManager? = null
 
         recycler1 = view.findViewById(R.id.recycler1)
-
-//        vm.select().observe(this,Observer<List<ModelPlaces>>(){
-//
-//
-//            var allData:List<ModelPlaces>?=null
-//              vm.select()
-//            recycler1?.apply {
-//                layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-//                recycler1.layoutManager = layoutManager
-//                adapterSave = SaveAdapter(context, allData!!)
-//                recycler1.adapter = adapterSave
-//                adapterSave.notifyDataSetChanged()
-//            }
-//        })
-     //   modelPlaces = vm.select1()
-     //   list = listOf(modelPlaces)
-          //recycler1!!.adapter = adapterSave
+        progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
 
         getAllPlaces()
         recycler1?.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             recycler1.layoutManager = layoutManager
-           // recycler1.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.VERTICAL))
-            adapterSave = SaveAdapter(requireContext(),list, object : SaveAdapter.TaskHandler2{
-                override fun itemClick(pos: Int, modelPlaces11: ModelPlaces) {
+            // recycler1.addItemDecoration(DividerItemDecoration(context,LinearLayoutManager.VERTICAL))
+            adapterSave = SaveAdapter(requireContext(), list, object : SaveAdapter.TaskHandler2 {
+                override fun itemClick(pos: Int, list1:ArrayList<ModelPlaces>) {
                     //pos1=pos
 
-                    thread(start = true) {
-                        vm.delete(modelPlaces11)
-                    }
-                    list.removeAt(pos)
-                    adapterSave.notifyDataSetChanged()
+                        vm.delete(list1.get(pos))
+
+                                list1.clear()
+                                adapterSave.notifyDataSetChanged()
 
                 }
             })
             recycler1.adapter = adapterSave
-            //recycler1.notifySubtreeAccessibilityStateChanged()
-           // adapterSave.notifyDataSetChanged()
 
         }
         return view
@@ -105,21 +88,15 @@ class SavedPlaces : Fragment()  {
                 adapterSave.notifyDataSetChanged()
             }
         })
-    }}
+    }
 
+    override fun onResume() {
+        super.onResume()
 
-/*
+        adapterSave.notifyDataSetChanged()
 
-        vm.allDataList.observe(this,object:Observer<List<ModelPlaces>>{
-
-            override fun onChanged(t: List<ModelPlaces>?) {
-                recycler1!!.adapter = adapterSave
-                Log.e("","list =="+list)
-            }
-        })
-
-*/
-
+    }
+}
 
 //////////////////////////////////////////////////////////////////////
 //        var vm1 = PlaceAppDatabase.getDatabase(requireContext())

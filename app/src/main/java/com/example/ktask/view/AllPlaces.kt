@@ -144,7 +144,7 @@ class AllPlaces : Fragment() {
                     layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                     recycler.layoutManager = layoutManager
                     adapterPlace =
-                        ApllPlaceAdapter(context, listPlace, object : ApllPlaceAdapter.TaskHandler1 {
+                        ApllPlaceAdapter(requireContext(), listPlace, object : ApllPlaceAdapter.TaskHandler1 {
 
                             override fun itemClick(pos: Int, modelPlaces: ModelPlaces, status: Int) {
                                 try {
